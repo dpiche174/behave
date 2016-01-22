@@ -1292,10 +1292,10 @@ class Step(BasicStatement, Replayable):
                 error = u"Assertion Failed: "+ message
             else:
                 # no assertion text; format the exception
-                error = _text(traceback.format_exc())
+                error = _text(traceback.format_exc(), sys.getfilesystemencoding(), 'replace')
         except Exception as e:      # pylint: disable=broad-except
             self.status = "failed"
-            error = _text(traceback.format_exc())
+            error = _text(traceback.format_exc(), sys.getfilesystemencoding(), 'replace')
             self.store_exception_context(e)
 
         self.duration = time.time() - start
